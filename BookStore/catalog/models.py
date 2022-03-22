@@ -3,7 +3,7 @@ from django.urls import reverse
 
 
 class Department(models.Model):
-    num_dep = models.IntegerField()
+    num_dep = models.IntegerField(verbose_name="Номер отдела")
     name = models.CharField(max_length=150, help_text="Введите название отдела", verbose_name="Название отдела",
                             null=True)
 
@@ -12,8 +12,8 @@ class Department(models.Model):
 
 
 class Location(models.Model):
-    num_shelf = models.IntegerField()
-    num_rack = models.IntegerField()
+    num_shelf = models.IntegerField(verbose_name="Номер полки")
+    num_rack = models.IntegerField(verbose_name="Номер стеллажа")
     num_dep = models.ForeignKey(Department, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
@@ -62,7 +62,7 @@ class Book(models.Model):
     year_of_pub = models.DateField(null=True)
     pub_house = models.ForeignKey('Pub_house', on_delete=models.SET_NULL, help_text="Введите название издательства",
                                   verbose_name="Название издательства", null=True)
-    actual_cost = models.IntegerField()
+    actual_cost = models.IntegerField(verbose_name="Актуальная цена")
     location = models.ForeignKey('Location', on_delete=models.SET_NULL, help_text="Выберите полку в магазине",
                                  verbose_name="Полка", null=True)
 
@@ -90,7 +90,7 @@ class Provider(models.Model):
 
 
 class Admission(models.Model):
-    number = models.IntegerField()
+    number = models.IntegerField(verbose_name="Номер поступления")
     name_prov = models.ForeignKey('Provider', on_delete=models.SET_NULL, help_text="Выберите поставщика поступления",
                                   verbose_name="Поставщик поступления", null=True)
     date = models.DateField()
@@ -126,6 +126,11 @@ class Check(models.Model):
     def __str__(self):
         return str(self.number)
 
+    def display_book_for_sale(self):
+        return ', '.join([book_for_sale.barcode for book_for_sale in self.book_for_sale.all()])
+
+    display_book_for_sale.short_description = 'Книги'
+
 
 class Book_for_sale(models.Model):
     barcode = models.CharField(max_length=13, help_text="Введите штрих-код", verbose_name="Штрих-код")
@@ -133,7 +138,7 @@ class Book_for_sale(models.Model):
                                   verbose_name="Номер поступления")
     book = models.ForeignKey('Book', on_delete=models.PROTECT, help_text="Выберите книгу",
                              verbose_name="Книга")
-    cost = models.IntegerField()
+    cost = models.IntegerField(verbose_name="Стоимость проданной книги")
 
     def __str__(self):
         return self.barcode
