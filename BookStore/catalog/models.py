@@ -4,19 +4,20 @@ from django.urls import reverse
 
 class Department(models.Model):
     num_dep = models.IntegerField()
-    name = models.CharField(max_length=150, help_text="Введите название отдела", verbose_name="Название отдела")
+    name = models.CharField(max_length=150, help_text="Введите название отдела", verbose_name="Название отдела",
+                            null=True)
 
     def __str__(self):
-        return self.num_dep
+        return str(self.num_dep)
 
 
 class Location(models.Model):
     num_shelf = models.IntegerField()
     num_rack = models.IntegerField()
-    num_dep = models.ForeignKey(Department, on_delete=models.CASCADE)
+    num_dep = models.ForeignKey(Department, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
-        return self.num_shelf
+        return str(self.num_shelf)
 
 
 class Author(models.Model):
@@ -28,14 +29,14 @@ class Author(models.Model):
 
 
 class Genre(models.Model):
-    name = models.CharField(max_length=200, help_text="Введите жанр книги", verbose_name="Жанр книги")
+    name = models.CharField(max_length=200, help_text="Введите жанр книги", verbose_name="Жанр книги", null=True)
 
     def __str__(self):
         return self.name
 
 
 class Language(models.Model):
-    name = models.CharField(max_length=20, help_text="Введите язык книги", verbose_name="Язык книги")
+    name = models.CharField(max_length=20, help_text="Введите язык книги", verbose_name="Язык книги", null=True)
 
     def __str__(self):
         return self.name
@@ -56,9 +57,9 @@ class Book(models.Model):
                                  verbose_name="Язык книги", null=True)
     author = models.ManyToManyField('Author', help_text="Выберите автора книги", verbose_name="Автор книги")
     summary = models.TextField(max_length=1000, help_text="Введите краткое описание книги",
-                               verbose_name="Аннотация книги")
-    isbn = models.CharField(max_length=13, help_text="Должно содержать 13 символов", verbose_name="ISBN книги")
-    year_of_pub = models.DateField()
+                               verbose_name="Аннотация книги", null=True)
+    isbn = models.CharField(max_length=17, help_text="Должно содержать 17 символов", verbose_name="ISBN книги")
+    year_of_pub = models.DateField(null=True)
     pub_house = models.ForeignKey('Pub_house', on_delete=models.SET_NULL, help_text="Введите название издательства",
                                   verbose_name="Название издательства", null=True)
     actual_cost = models.IntegerField()
@@ -95,7 +96,7 @@ class Admission(models.Model):
     date = models.DateField()
 
     def __str__(self):
-        return self.number
+        return str(self.number)
 
 
 class Employee(models.Model):
@@ -116,17 +117,18 @@ class Employee(models.Model):
 
 
 class Check(models.Model):
-    number = models.IntegerField(help_text="Введите чек", verbose_name="Чек")
+    number = models.CharField(max_length=20, help_text="Введите чек", verbose_name="Чек")
     date = models.DateTimeField()
     employee = models.ForeignKey('Employee', on_delete=models.PROTECT, help_text="Выберите сотрудника, пробившего чек",
                                  verbose_name="Сотрудника, пробивший чек")
+    book_for_sale = models.ManyToManyField('Book_for_sale', help_text="Выберите книгу", verbose_name="Книга")
 
     def __str__(self):
-        return self.number
+        return str(self.number)
 
 
 class Book_for_sale(models.Model):
-    barcode = models.IntegerField(help_text="Введите штрих-код", verbose_name="Штрих-код")
+    barcode = models.CharField(max_length=13, help_text="Введите штрих-код", verbose_name="Штрих-код")
     admission = models.ForeignKey('Admission', on_delete=models.PROTECT, help_text="Выберите номер поступления",
                                   verbose_name="Номер поступления")
     book = models.ForeignKey('Book', on_delete=models.PROTECT, help_text="Выберите книгу",
@@ -134,4 +136,4 @@ class Book_for_sale(models.Model):
     cost = models.IntegerField()
 
     def __str__(self):
-        return self.book
+        return self.barcode
