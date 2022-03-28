@@ -1,33 +1,20 @@
 from django.db import models
 from django.urls import reverse
+from datetime import date
 
 
-class Department(models.Model):
-    num_dep = models.IntegerField(verbose_name="Номер отдела")
-    name = models.CharField(max_length=150, help_text="Введите название отдела", verbose_name="Название отдела",
-                            null=True)
-
-    def __str__(self):
-        return str(self.num_dep)
-
-
-class Location(models.Model):
-    num_shelf = models.IntegerField(verbose_name="Номер полки")
-    num_rack = models.IntegerField(verbose_name="Номер стеллажа")
-    num_dep = models.ForeignKey(Department, on_delete=models.CASCADE, null=True)
-
-    def __str__(self):
-        return str(self.num_shelf)
-
-
+# Автор
 class Author(models.Model):
     first_name = models.CharField(max_length=100, help_text="Введите имя автора", verbose_name="Имя автора")
     last_name = models.CharField(max_length=100, help_text="Введите фамилию автора", verbose_name="Фамилия автора")
+    patronymic = models.CharField(max_length=100, help_text="Введите отчество автора", verbose_name="Отчество автора",
+                                  null=True, blank=True)
 
     def __str__(self):
-        return '{0} {1}'.format(self.last_name, self.first_name)
+        return '{0} {1} {2}'.format(self.last_name, self.first_name, self.patronymic)
 
 
+# Жанр
 class Genre(models.Model):
     name = models.CharField(max_length=200, help_text="Введите жанр книги", verbose_name="Жанр книги", null=True)
 
@@ -35,6 +22,7 @@ class Genre(models.Model):
         return self.name
 
 
+# Язык
 class Language(models.Model):
     name = models.CharField(max_length=20, help_text="Введите язык книги", verbose_name="Язык книги", null=True)
 
@@ -42,29 +30,41 @@ class Language(models.Model):
         return self.name
 
 
+# Издательство
 class Pub_house(models.Model):
-    name = models.CharField(max_length=200, help_text="Введите издательство", verbose_name="Издательство книги")
+    name = models.CharField(max_length=200, help_text="Введите издательство", verbose_name="Издательство книги",
+                            null=True)
 
     def __str__(self):
         return self.name
 
 
+# Переплёт
+class Cover(models.Model):
+    type = models.CharField(max_length=50, help_text="Введите тип переплета", verbose_name="Тип переплета", null=True,
+                            blank=True)
+
+    def __str__(self):
+        return self.type
+
+
+# Книга
 class Book(models.Model):
-    title = models.CharField(max_length=200, help_text="Введите название книги", verbose_name="Название книги")
+    title = models.CharField(max_length=350, help_text="Введите название книги", verbose_name="Название книги")
     genre = models.ForeignKey('Genre', on_delete=models.SET_NULL, help_text="Выберите жанр для книги",
-                              verbose_name="Жанр книги", null=True)
+                              verbose_name="Жанр книги", null=True, blank=True)
     language = models.ForeignKey('Language', on_delete=models.SET_NULL, help_text="Выберите язык книги",
-                                 verbose_name="Язык книги", null=True)
+                                 verbose_name="Язык книги", null=True, blank=True)
     author = models.ManyToManyField('Author', help_text="Выберите автора книги", verbose_name="Автор книги")
-    summary = models.TextField(max_length=1000, help_text="Введите краткое описание книги",
-                               verbose_name="Аннотация книги", null=True)
+    summary = models.TextField(max_length=1750, help_text="Введите краткое описание книги",
+                               verbose_name="Аннотация книги", null=True, blank=True)
     isbn = models.CharField(max_length=17, help_text="Должно содержать 17 символов", verbose_name="ISBN книги")
-    year_of_pub = models.DateField(null=True)
+    year_of_pub = models.DateField(null=True, blank=True)
     pub_house = models.ForeignKey('Pub_house', on_delete=models.SET_NULL, help_text="Введите название издательства",
-                                  verbose_name="Название издательства", null=True)
-    actual_cost = models.IntegerField(verbose_name="Актуальная цена")
-    location = models.ForeignKey('Location', on_delete=models.SET_NULL, help_text="Выберите полку в магазине",
-                                 verbose_name="Полка", null=True)
+                                  verbose_name="Название издательства", null=True, blank=True)
+    cover = models.ForeignKey('Cover', on_delete=models.SET_NULL, help_text="Выберите переплет",
+                              verbose_name="Переплет", null=True, blank=True)
+    image = models.ImageField(verbose_name="Картинка книги", null=True, blank=True)
 
     def __str__(self):
         return self.title
@@ -79,66 +79,71 @@ class Book(models.Model):
     display_author.short_description = 'Авторы'
 
 
+# Статус
+class Status(models.Model):
+    name = models.CharField(max_length=20, help_text="Введите статус экземпляра книги",
+                            verbose_name="Статус экземпляра книги", blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+
+# Поставщик
 class Provider(models.Model):
     name = models.CharField(max_length=200, help_text="Введите поставщика", verbose_name="Поставщик")
     address = models.CharField(max_length=200, help_text="Введите адрес поставщика", verbose_name="Адрес поставщика")
-    phone = models.CharField(max_length=11, help_text="Введите номер телефона поставщика",
+    phone = models.CharField(max_length=18, help_text="Введите номер телефона поставщика",
                              verbose_name="Номер телефона поставщика")
 
     def __str__(self):
         return self.name
 
 
+# Поступление
 class Admission(models.Model):
     number = models.IntegerField(verbose_name="Номер поступления")
     name_prov = models.ForeignKey('Provider', on_delete=models.SET_NULL, help_text="Выберите поставщика поступления",
-                                  verbose_name="Поставщик поступления", null=True)
+                                  verbose_name="Поставщик поступления", null=True, blank=True)
     date = models.DateField()
 
     def __str__(self):
         return str(self.number)
 
 
-class Employee(models.Model):
-    first_name = models.CharField(max_length=100, help_text="Введите имя сотрудника", verbose_name="Имя сотрудника")
-    last_name = models.CharField(max_length=100, help_text="Введите фамилию сотрудника",
-                                 verbose_name="Фамилия сотрудника")
-    patronymic = models.CharField(max_length=100, help_text="Введите отчество сотрудника",
-                                  verbose_name="Отчество сотрудника")
-    position = models.CharField(max_length=100, help_text="Введите должность сотрудника",
-                                verbose_name="Должность сотрудника")
-    salary = models.IntegerField(help_text="Введите зарплату сотрудника",
-                                 verbose_name="Зарплата сотрудника")
-    phone = models.CharField(max_length=11, help_text="Введите номер телефона сотрудника",
-                             verbose_name="Номер телефона сотрудника")
-
-    def __str__(self):
-        return '{0} {1}'.format(self.last_name, self.first_name)
-
-
-class Check(models.Model):
-    number = models.CharField(max_length=20, help_text="Введите чек", verbose_name="Чек")
-    date = models.DateTimeField()
-    employee = models.ForeignKey('Employee', on_delete=models.PROTECT, help_text="Выберите сотрудника, пробившего чек",
-                                 verbose_name="Сотрудника, пробивший чек")
-    book_for_sale = models.ManyToManyField('Book_for_sale', help_text="Выберите книгу", verbose_name="Книга")
-
-    def __str__(self):
-        return str(self.number)
-
-    def display_book_for_sale(self):
-        return ', '.join([book_for_sale.barcode for book_for_sale in self.book_for_sale.all()])
-
-    display_book_for_sale.short_description = 'Книги'
-
-
-class Book_for_sale(models.Model):
-    barcode = models.CharField(max_length=13, help_text="Введите штрих-код", verbose_name="Штрих-код")
-    admission = models.ForeignKey('Admission', on_delete=models.PROTECT, help_text="Выберите номер поступления",
-                                  verbose_name="Номер поступления")
+# Экземпляр книги
+class BookInstance(models.Model):
     book = models.ForeignKey('Book', on_delete=models.PROTECT, help_text="Выберите книгу",
-                             verbose_name="Книга")
-    cost = models.IntegerField(verbose_name="Стоимость проданной книги")
+                             verbose_name="Название книги")
+    status = models.ForeignKey('Status', on_delete=models.SET_NULL, help_text="Выберите статус", verbose_name="Статус",
+                               null=True, blank=True)
+    receipt = models.ForeignKey('Admission', on_delete=models.PROTECT, help_text="Выберите номер поступления",
+                                verbose_name="Номер поступления")
+    cost = models.IntegerField(help_text="Введите стоимость книги", verbose_name="Стоимость книги")
+    order_num = models.ForeignKey('Booking', on_delete=models.SET_NULL, verbose_name="Номер заказа",
+                                  help_text="Выберите номер заказа", null=True, blank=True)
 
     def __str__(self):
-        return self.barcode
+        return self.book.title
+
+
+# Заказ
+class Booking(models.Model):
+    book = models.ForeignKey('Book', on_delete=models.PROTECT, help_text="Выберите книгу",
+                             verbose_name="Название книги")
+    price = models.IntegerField(help_text="Введите стоимость заказа", verbose_name="Стоимость заказа")
+    full_name = models.CharField(max_length=150, help_text="Введите ФИО заказчика", verbose_name="ФИО заказчика")
+    address = models.CharField(max_length=200, help_text="Введите адрес заказчика", verbose_name="Адрес заказчика")
+    order_date = models.DateField(default=date.today, help_text="Выберите дату заказа", verbose_name="Дата заказа")
+
+    def __str__(self):
+        return self.book.book.title
+
+
+# Реклама
+class Advertisement(models.Model):
+    name = models.CharField(max_length=100, help_text="Введите описание к картинке", verbose_name="Картинка", null=True,
+                            blank=True)
+    image = models.ImageField(verbose_name="Акция")
+
+    def __str__(self):
+        return self.name

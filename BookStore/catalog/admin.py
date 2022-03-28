@@ -1,72 +1,91 @@
 from django.contrib import admin
 
-from catalog.models import Department, Location, Author, Genre, Language, Pub_house, Book, Provider, Admission, \
-    Employee, Check, Book_for_sale
-
-
-class DepartmentAdmin(admin.ModelAdmin):
-    list_display = ('num_dep', 'name')
-
-
-admin.site.register(Department, DepartmentAdmin)
-
-
-class LocationAdmin(admin.ModelAdmin):
-    list_display = ('num_shelf', 'num_rack', 'num_dep')
-
-
-admin.site.register(Location, LocationAdmin)
+from catalog.models import Author, Genre, Language, Pub_house, Cover, Book, Status, Provider, Admission, BookInstance, \
+    Booking, Advertisement
 
 
 class AuthorAdmin(admin.ModelAdmin):
-    list_display = ('last_name', 'first_name')
+    list_display = ('id', 'last_name', 'first_name', 'patronymic')
 
 
 admin.site.register(Author, AuthorAdmin)
 
-admin.site.register(Genre)
-admin.site.register(Language)
-admin.site.register(Pub_house)
+
+class GenreAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name')
+
+
+admin.site.register(Genre, GenreAdmin)
+
+
+class LanguageAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name')
+
+
+admin.site.register(Language, LanguageAdmin)
+
+
+class Pub_houseAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name')
+
+
+admin.site.register(Pub_house, Pub_houseAdmin)
+
+
+class CoverAdmin(admin.ModelAdmin):
+    list_display = ('id', 'type')
+
+
+admin.site.register(Cover, CoverAdmin)
 
 
 class BookAdmin(admin.ModelAdmin):
-    list_display = ('title', 'genre', 'language', 'display_author', 'actual_cost')
-    list_filter = ('genre', 'language', 'author')
+    list_display = ('id', 'title', 'isbn', 'genre', 'language', 'display_author', 'pub_house', 'cover')
+    list_filter = ('genre', 'language', 'author', 'pub_house')
 
 
 admin.site.register(Book, BookAdmin)
 
 
+class StatusAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name')
+
+
+admin.site.register(Status, StatusAdmin)
+
+
 class ProviderAdmin(admin.ModelAdmin):
-    list_display = ('name', 'address', 'phone')
+    list_display = ('id', 'name', 'address', 'phone')
 
 
 admin.site.register(Provider, ProviderAdmin)
 
 
 class AdmissionAdmin(admin.ModelAdmin):
-    list_display = ('number', 'name_prov', 'date')
+    list_display = ('id', 'number', 'name_prov', 'date')
 
 
 admin.site.register(Admission, AdmissionAdmin)
 
 
-class EmployeeAdmin(admin.ModelAdmin):
-    list_display = ('last_name', 'first_name', 'patronymic', 'position', 'salary', 'phone')
+class BookInstanceAdmin(admin.ModelAdmin):
+    list_display = ('id', 'book', 'status', 'receipt', 'cost', 'order_num')
+    list_filter = ('book', 'status', 'receipt', 'order_num')
 
 
-admin.site.register(Employee, EmployeeAdmin)
+admin.site.register(BookInstance, BookInstanceAdmin)
 
 
-class CheckAdmin(admin.ModelAdmin):
-    list_display = ('number', 'date', 'employee', 'display_book_for_sale')
+class BookingAdmin(admin.ModelAdmin):
+    list_display = ('id', 'book', 'price', 'full_name', 'address', 'order_date')
+    list_filter = ('book', 'full_name', 'order_date')
 
 
-admin.site.register(Check, CheckAdmin)
+admin.site.register(Booking, BookingAdmin)
 
 
-class Book_for_saleAdmin(admin.ModelAdmin):
-    list_display = ('barcode', 'admission', 'book', 'cost')
+class AdvertisementAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name', 'image')
 
 
-admin.site.register(Book_for_sale, Book_for_saleAdmin)
+admin.site.register(Advertisement, AdvertisementAdmin)
