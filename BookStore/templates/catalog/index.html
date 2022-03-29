@@ -1,0 +1,15 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h1>Главная страница</h1>
+{% if list_books %}
+<h1>Все книги по мере их поступления</h1>
+<ul>
+    {% for book in list_books %}
+    <li>{{ book }}</li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>Нет книг!</p>
+{% endif %}
+{% endblock %}

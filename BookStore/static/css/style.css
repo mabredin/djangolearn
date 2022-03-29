@@ -1,0 +1,16 @@
+hr {
+    margin-top: 0px ;
+}
+
+.sidebar-nav a {
+    color: black;
+    margin: 0px 11px 0px;
+    font-family: Londrina Shadow;
+    font-style: normal;
+    font-size: 18pt;
+    text-decoration: none;
+}
+
+.sidebar-nav a:hover {
+    color: red;
+}
