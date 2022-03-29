@@ -1,0 +1,32 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<div class="row" style="margin: 0 10px;">
+    <div class="col-sm-4">
+        {% if list_genres %}
+        <h2>Жанры</h2>
+        <ul style="padding-left: 10px; list-style-type: none">
+            {% for genre in list_genres %}
+            <li>{{ genre.name }}</li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p>Нет жанров!</p>
+        {% endif %}
+    </div>
+    <div class="col-sm-8" style="background-color: gray">
+        <h2>Все книги в магазине</h2>
+        {% if list_books %}
+        <ul>
+            {% for book in list_books %}
+            <li>{{ book }}</li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p>Нет книг!</p>
+        {% endif %}
+    </div>
+</div>
+<div class="row" style="height: 300px"></div>
+
+{% endblock %}

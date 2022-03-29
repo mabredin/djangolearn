@@ -1,9 +1,15 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-<h1>Главная страница</h1>
+<h2>Главная страница</h2>
+<div class="row"
+     style="background-color: blanchedalmond; height: 300px; text-align: center; line-height: 300px; font-size: 30px; opacity: 0.6">
+    <div class="col-sm-12">
+        Тут будет слайдер с рекламой и акциями
+    </div>
+</div>
 {% if list_books %}
-<h1>Все книги по мере их поступления</h1>
+<h2>Все книги по мере их поступления</h2>
 <ul>
     {% for book in list_books %}
     <li>{{ book }}</li>
@@ -12,4 +18,10 @@
 {% else %}
 <p>Нет книг!</p>
 {% endif %}
+<h2>Новинки</h2>
+<h3>...</h3>
+<h3>...</h3>
+<h2>Популярные</h2>
+<h3>...</h3>
+<h3>...</h3>
 {% endblock %}
