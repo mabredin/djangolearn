@@ -69,9 +69,10 @@ class Book(models.Model):
     def __str__(self):
         return self.title
 
-    # def get_absolute_url(self):
-    #     # Возвращает URL-адрес для доступа к определенному экземпляру книги
-    #     return reverse('book-detail', args=[str(self.id)])
+    # Необходимо добавить url в urls!!!!!!
+    def get_absolute_url(self):
+        # Возвращает URL-адрес для доступа к определенному экземпляру книги
+        return reverse('book-detail', args=[str(self.id)])
 
     def display_author(self):
         return ', '.join([author.last_name for author in self.author.all()])
@@ -136,7 +137,7 @@ class Booking(models.Model):
     order_date = models.DateField(default=date.today, help_text="Выберите дату заказа", verbose_name="Дата заказа")
 
     def __str__(self):
-        return self.book.book.title
+        return str(self.id)
 
 
 # Реклама
