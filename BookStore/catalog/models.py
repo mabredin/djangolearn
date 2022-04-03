@@ -65,7 +65,6 @@ class Book(models.Model):
     cover = models.ForeignKey('Cover', on_delete=models.SET_NULL, help_text="Выберите переплет",
                               verbose_name="Переплет", null=True, blank=True)
     image = models.ImageField(upload_to='images/', verbose_name="Картинка книги", null=True, blank=True)
-    # static/images/
 
     def __str__(self):
         return self.title
@@ -115,7 +114,7 @@ class Admission(models.Model):
 # Экземпляр книги
 class BookInstance(models.Model):
     book = models.ForeignKey('Book', on_delete=models.PROTECT, help_text="Выберите книгу",
-                             verbose_name="Название книги")
+                             verbose_name="Название книги", related_name='book_instance')
     status = models.ForeignKey('Status', on_delete=models.SET_NULL, help_text="Выберите статус", verbose_name="Статус",
                                null=True, blank=True)
     receipt = models.ForeignKey('Admission', on_delete=models.PROTECT, help_text="Выберите номер поступления",
