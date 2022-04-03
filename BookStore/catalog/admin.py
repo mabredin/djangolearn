@@ -40,7 +40,7 @@ admin.site.register(Cover, CoverAdmin)
 
 
 class BookAdmin(admin.ModelAdmin):
-    list_display = ('id', 'title', 'isbn', 'genre', 'language', 'display_author', 'pub_house', 'cover')
+    list_display = ('id', 'title', 'isbn', 'genre', 'language', 'display_author', 'pub_house', 'cover', 'image')
     list_filter = ('genre', 'language', 'author', 'pub_house')
 
 

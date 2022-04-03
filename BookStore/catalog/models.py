@@ -52,7 +52,7 @@ class Cover(models.Model):
 class Book(models.Model):
     title = models.CharField(max_length=350, help_text="Введите название книги", verbose_name="Название книги")
     genre = models.ForeignKey('Genre', on_delete=models.SET_NULL, help_text="Выберите жанр для книги",
-                              verbose_name="Жанр книги", null=True, blank=True)
+                              verbose_name="Жанр книги", null=True, blank=True, related_name='genre_book')
     language = models.ForeignKey('Language', on_delete=models.SET_NULL, help_text="Выберите язык книги",
                                  verbose_name="Язык книги", null=True, blank=True)
     author = models.ManyToManyField('Author', help_text="Выберите автора книги", verbose_name="Автор книги")
@@ -64,7 +64,8 @@ class Book(models.Model):
                                   verbose_name="Название издательства", null=True, blank=True)
     cover = models.ForeignKey('Cover', on_delete=models.SET_NULL, help_text="Выберите переплет",
                               verbose_name="Переплет", null=True, blank=True)
-    image = models.ImageField(verbose_name="Картинка книги", null=True, blank=True)
+    image = models.ImageField(upload_to='images/', verbose_name="Картинка книги", null=True, blank=True)
+    # static/images/
 
     def __str__(self):
         return self.title
@@ -75,7 +76,7 @@ class Book(models.Model):
         return reverse('book-detail', args=[str(self.id)])
 
     def display_author(self):
-        return ', '.join([author.last_name for author in self.author.all()])
+        return ', '.join(['{0} {1}'.format(author.last_name, author.first_name) for author in self.author.all()])
 
     display_author.short_description = 'Авторы'
 

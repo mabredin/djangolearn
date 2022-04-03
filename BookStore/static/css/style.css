@@ -27,3 +27,17 @@
 .sidebar-nav a:hover {
     color: red;
 }
+
+.line {
+    float: left;
+}
+
+.image {
+    display: block;
+    margin-left: auto;
+    margin-right: auto
+}
+
+.title {
+
+}
