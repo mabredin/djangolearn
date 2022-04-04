@@ -8,10 +8,10 @@ from .models import Book, BookInstance, Genre, Admission
 
 class HomePageView(generic.ListView):
     template_name = 'catalog/index.html'
-    context_object_name = 'list_books'
+    context_object_name = 'latest_books_list'
 
     def get_queryset(self):
-        return Book.objects.all()
+        return Book.objects.order_by('-id')[:6]
 
 
 class GenresView(generic.ListView):
