@@ -17,11 +17,10 @@
             {% for genre in list_genres %}
             {% for book in genre.genre_book.all %}
             <li class="col-sm-3" style="float: left; margin-bottom: 15px">
-                <div class="row"
-                     style="width: 95%; height: 390px; border-style: solid; border-width: thin; border-radius: 5px; border-color: #E1DDE0; padding: 10px 0">
+                <div id="in-book" class="row">
                     <div class="image">
                         {% if book.image %}
-                        <img src="{{MEDIA_URL}}{{ book.image.url }}">
+                        <img src="{{MEDIA_URL}}{{ book.image.url }}" id="img-book">
                         {% else %}
                         <p>Изображение отсутствует</p>
                         {% endif %}
@@ -29,7 +28,10 @@
                     <div class="title"><b>{{ book.title }}</b></div>
                     <div class="author">{{ book.display_author }}</div>
                     <div class="cost"><b>{{ book.cost }} ₽</b></div>
-                    <button class="btn btn-primary" type="submit">Заказать</button>
+                    <div class="buttons">
+                        <button class="btn btn-primary" type="button" id="detail">Подробнее</button>
+                        <button class="btn btn-primary" type="submit" id="order">Заказать</button>
+                    </div>
                 </div>
             </li>
             {% endfor %}
