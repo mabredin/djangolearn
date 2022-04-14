@@ -4,38 +4,32 @@
 <div class="row" style="margin: 0 10px;">
     {% if list_genres %}
     <div class="col-sm-4">
-        <h2 style="font-family: 'AlergiaNormal'; font-size: 28px;">Жанры</h2>
-        <ul style="padding-left: 10px; list-style-type: none">
+        <h2 class="title_genres_h2">Жанры</h2>
+        <ul class="title_genres_ul">
             {% for genre in list_genres %}
             <li>{{ genre.name }}</li>
             {% endfor %}
         </ul>
     </div>
     <div class="col-sm-8" style="padding-left: 0; padding-right: 0">
-        <div style="font-family: 'AlergiaNormal'; font-size: 28px; margin-bottom: 15px; padding-left: 19px"><b>Все книги в магазине</b>
-        </div>
-        <ul class="line" style="list-style-type: none;">
+        <div class="title_all_books"><b>Все книги в магазине</b></div>
+        <ul class="line">
             {% for genre in list_genres %}
             {% for book in genre.genre_book.all %}
             <li class="col-sm-3" style="float: left; margin-bottom: 15px">
                 <div class="row"
                      style="width: 95%; height: 390px; border-style: solid; border-width: thin; border-radius: 5px; border-color: #E1DDE0; padding: 10px 0">
-                    <div class="image" style="display: block; margin-left: auto; margin-right: auto; text-align: center">
+                    <div class="image">
                         {% if book.image %}
                         <img src="{{MEDIA_URL}}{{ book.image.url }}">
                         {% else %}
                         <p>Изображение отсутствует</p>
                         {% endif %}
                     </div>
-                    <div class="title-and-author">
-                        <div class="title" style="font-family: 'AlergiaNormal'; font-size: 16px; outline: none; overflow: hidden;"><b>{{ book.title }}</b>
-                        </div>
-                        <div class="author" style="font-family: 'AlergiaNormal'; font-size: 14px; color: gray">
-                            {{ book.display_author }}
-                        </div>
-                    </div>
-                    <div class="cost"></div>
-                    <div class="bottom"></div>
+                    <div class="title"><b>{{ book.title }}</b></div>
+                    <div class="author">{{ book.display_author }}</div>
+                    <div class="cost"><b>{{ book.cost }} ₽</b></div>
+                    <button class="btn btn-primary" type="submit">Заказать</button>
                 </div>
             </li>
             {% endfor %}
