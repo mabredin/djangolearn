@@ -1,3 +1,7 @@
+* {
+    font-family: 'montserratthin Regular 400';
+}
+
 @font-face {
     font-family: 'alergianormal-regularregular';
     src: url('../fonts/alergianormal-regular-webfont.woff2') format('woff2'),
@@ -13,10 +17,6 @@
     font-weight: normal;
     font-style: normal;
 
-}
-
-.container-fluid {
-    font-family: 'montserratthin Regular 400';
 }
 
 .col-sm {
@@ -45,17 +45,16 @@
 }
 
 .title_genres_h2 {
-    font-family: 'montserratthin Regular 400';
     font-size: 28px;
 }
 
 .title_genres_ul {
     padding-left: 10px;
     list-style-type: none;
+    font-size: 20px;
 }
 
 .title_all_books {
-    font-family: 'montserratthin Regular 400';
     font-size: 28px;
     margin-bottom: 15px;
     padding-left: 19px;
@@ -74,7 +73,6 @@
 }
 
 .title {
-    font-family: 'montserratthin Regular 400';
     font-size: 16px;
     outline: none;
     height: 50px;
@@ -82,13 +80,14 @@
 }
 
 .author {
-    font-family: 'montserratthin Regular 400';
     font-size: 14px;
     color: gray;
+    outline: none;
+    height: 20px;
+    overflow: hidden;
 }
 
 .cost {
-    font-family: 'montserratthin Regular 400';
     font-size: 22px;
     text-align: left;
 }
@@ -118,10 +117,20 @@
     color: white;
 }
 
+#detail:hover {
+    color: white;
+    background-color: #DECC70FF;
+}
+
 #order {
     width: 98px;
     background-color: red;
     border-color: red;
+}
+
+#order:hover {
+    color: white;
+    background-color: #E70000FF;
 }
 
 .btn-primary:focus {
@@ -130,4 +139,13 @@
 
 .btn-primary:target {
     box-shadow: none;
+}
+
+#books {
+    color: black;
+    text-decoration: none;
+}
+
+#books:hover {
+    color: red;
 }

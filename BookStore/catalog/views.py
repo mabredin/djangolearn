@@ -14,9 +14,9 @@ class HomePageView(generic.ListView):
         return Book.objects.order_by('-id')[:6]
 
 
-class GenresView(generic.ListView):
+class CatalogView(generic.ListView):
     model = Genre
-    template_name = 'catalog/genres.html'
+    template_name = 'catalog/catalog.html'
     context_object_name = 'list_genres'
 
     # def get_context_data(self, *args, **kwargs):
@@ -32,6 +32,14 @@ class GenresView(generic.ListView):
     #     context = {}
     #     context.update(books=books, genres=genres)
     #     return self.render_to_response(context)
+
+
+class DetailView(generic.DetailView):
+    model = Book
+    template_name = 'catalog/detail.html'
+
+    def get_queryset(self):
+        return Book.objects.all()
 
 
 def about(request):
