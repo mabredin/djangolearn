@@ -59,6 +59,7 @@ class Book(models.Model):
     summary = models.TextField(max_length=1750, help_text="Введите краткое описание книги",
                                verbose_name="Аннотация книги", null=True, blank=True)
     isbn = models.CharField(max_length=17, help_text="Должно содержать 17 символов", verbose_name="ISBN книги")
+    cost = models.IntegerField(help_text="Введите стоимость книги", verbose_name="Стоимость книги", default=0, null=True)
     year_of_pub = models.DateField(null=True, blank=True)
     pub_house = models.ForeignKey('Pub_house', on_delete=models.SET_NULL, help_text="Введите название издательства",
                                   verbose_name="Название издательства", null=True, blank=True)
@@ -75,7 +76,7 @@ class Book(models.Model):
         return reverse('book-detail', args=[str(self.id)])
 
     def display_author(self):
-        return ', '.join(['{0} {1}'.format(author.last_name, author.first_name) for author in self.author.all()])
+        return ', '.join(['{0} {1}'.format(author.first_name, author.last_name) for author in self.author.all()])
 
     display_author.short_description = 'Авторы'
 
@@ -119,7 +120,6 @@ class BookInstance(models.Model):
                                null=True, blank=True)
     receipt = models.ForeignKey('Admission', on_delete=models.PROTECT, help_text="Выберите номер поступления",
                                 verbose_name="Номер поступления")
-    cost = models.IntegerField(help_text="Введите стоимость книги", verbose_name="Стоимость книги")
     order_num = models.ForeignKey('Booking', on_delete=models.SET_NULL, verbose_name="Номер заказа",
                                   help_text="Выберите номер заказа", null=True, blank=True)
 

@@ -40,7 +40,7 @@ admin.site.register(Cover, CoverAdmin)
 
 
 class BookAdmin(admin.ModelAdmin):
-    list_display = ('id', 'title', 'isbn', 'genre', 'language', 'display_author', 'pub_house', 'cover', 'image')
+    list_display = ('id', 'title', 'isbn', 'cost', 'genre', 'language', 'display_author', 'pub_house', 'cover', 'image')
     list_filter = ('genre', 'language', 'author', 'pub_house')
 
 
@@ -69,7 +69,7 @@ admin.site.register(Admission, AdmissionAdmin)
 
 
 class BookInstanceAdmin(admin.ModelAdmin):
-    list_display = ('id', 'book', 'status', 'receipt', 'cost', 'order_num')
+    list_display = ('id', 'book', 'status', 'receipt', 'order_num')
     list_filter = ('book', 'status', 'receipt', 'order_num')
 
 
