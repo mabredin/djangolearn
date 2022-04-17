@@ -34,6 +34,15 @@ class CatalogView(generic.ListView):
     #     return self.render_to_response(context)
 
 
+class GenreView(generic.ListView):
+    model = Genre
+    template_name = 'catalog/genre.html'
+    context_object_name = 'genre'
+
+    def get_queryset(self):
+        return Genre.objects.filter(id=self.kwargs['pk'])
+
+
 class DetailView(generic.DetailView):
     model = Book
     template_name = 'catalog/detail.html'
