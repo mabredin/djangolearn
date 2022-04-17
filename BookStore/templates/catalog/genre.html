@@ -24,7 +24,7 @@
                 <div id="in-book" class="row">
                     <div class="image">
                         {% if book.image %}
-                        <a href="{% url 'catalog:detail' book.id %}" id="books">
+                        <a href="{% url 'catalog:detail' book.id %}" class="books">
                             <img src="{{MEDIA_URL}}{{ book.image.url }}" id="img-book">
                         </a>
                         {% else %}
@@ -32,7 +32,7 @@
                         {% endif %}
                     </div>
                     <div class="title">
-                        <a href="{% url 'catalog:detail' book.id %}" id="books"><b>{{ book.title }}</b></a>
+                        <a href="{% url 'catalog:detail' book.id %}" class="books"><b>{{ book.title }}</b></a>
                     </div>
                     <div class="author">{{ book.display_author }}</div>
                     <div class="cost"><b>{{ book.cost }} ₽</b></div>
