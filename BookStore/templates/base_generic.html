@@ -36,35 +36,36 @@
 
         </div>
     </div>
-    <hr style="margin: 0 0 25px 0">
-    <div class="row">
+    <hr style="margin: 0 0 15px 0">
+    <div class="row" style="min-height: 610px">
         <div class="col-sm-12 ">
             {% block content %}{% endblock %}
-<!--            {% block pagination %}-->
-<!--            {% if is_paginated %}-->
-<!--            <div class="pagination">-->
-<!--                <span class="page-links">-->
-<!--                    {% if page_obj.has_previous %}-->
-<!--                        <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">Предыдущая</a>-->
-<!--                    {% endif %}-->
-<!--                    <span class="page-current">-->
-<!--                        Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}.-->
-<!--                    </span>-->
-<!--                    {% if page_obj.has_next %}-->
-<!--                        <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">Следующая</a>-->
-<!--                    {% endif %}-->
-<!--                </span>-->
-<!--            </div>-->
-<!--            {% endif %}-->
-<!--            {% endblock %}-->
-            <hr>
-            {% block footer %}
-            {% block copyright %}
-            <p>Данный сайт был разработан для оттачивания навыков и применения их на практике</p>
-            {% endblock %}
-            {% endblock %}
-
+            <!--            {% block pagination %}-->
+            <!--            {% if is_paginated %}-->
+            <!--            <div class="pagination">-->
+            <!--                <span class="page-links">-->
+            <!--                    {% if page_obj.has_previous %}-->
+            <!--                        <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">Предыдущая</a>-->
+            <!--                    {% endif %}-->
+            <!--                    <span class="page-current">-->
+            <!--                        Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}.-->
+            <!--                    </span>-->
+            <!--                    {% if page_obj.has_next %}-->
+            <!--                        <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">Следующая</a>-->
+            <!--                    {% endif %}-->
+            <!--                </span>-->
+            <!--            </div>-->
+            <!--            {% endif %}-->
+            <!--            {% endblock %}-->
         </div>
+    </div>
+    <hr>
+    <div class="row">
+        {% block footer %}
+        {% block copyright %}
+        <p>Данный сайт был разработан для оттачивания навыков и применения их на практике</p>
+        {% endblock %}
+        {% endblock %}
     </div>
 </div>
 </body>
