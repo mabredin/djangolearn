@@ -77,7 +77,22 @@
     border-width: thin;
     border-radius: 4px;
     border-color: #E1DDE078;
-    padding: 0 5px;
+    padding: 2px 5px;
+}
+
+.title_genres_ul li {
+    padding-bottom: 6px;
+}
+
+.selected_genre {
+    color: red;
+    text-decoration: none;
+    background-color: #E1DDE078;
+    border-style: solid;
+    border-width: thin;
+    border-radius: 4px;
+    border-color: #E1DDE078;
+    padding: 2px 5px;
 }
 
 .title_all_books {
@@ -116,6 +131,10 @@
 .cost {
     font-size: 22px;
     text-align: left;
+}
+
+#f {
+    width: 238px;
 }
 
 #in-book {
@@ -166,6 +185,11 @@
 
 .btn-primary:target {
     box-shadow: none;
+}
+
+#books {
+    padding-left: 0;
+    padding-right: 0;
 }
 
 .books {

@@ -1,6 +1,9 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
+<div class="row">
+    <div class="return"><a href="{% url 'catalog:home' %}" class="back">Главная</a><span style="color: gray; padding: 0 3px">
+</div>
 <div class="row" style="margin: 0 10px;">
     {% if list_genres %}
     <div class="col-sm-3">
@@ -11,7 +14,7 @@
             {% endfor %}
         </ul>
     </div>
-    <div class="col-sm-8" style="padding-left: 0; padding-right: 0">
+    <div class="col-sm-8" id="books">
         <div class="title_all_books"><b>Все книги в магазине</b></div>
         <ul class="line">
             {% for genre in list_genres %}

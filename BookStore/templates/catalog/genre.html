@@ -2,25 +2,30 @@
 
 {% block content %}
 <div class="row">
-    <div class="return"><a href="{% url 'catalog:home' %}" class="back">Главная</a><span style="color: gray; padding: 0 3px"> > </span>
-        <a href="{% url 'catalog:catalog' %}" class="back">Все жанры</a></div>
+    <div class="return">
+        <a href="{% url 'catalog:home' %}" class="back">Главная</a><span style="color: gray; padding: 0 3px"> > </span>
+        <a href="{% url 'catalog:catalog' %}" class="back">Все жанры</a>
+    </div>
 </div>
 <div class="row" style="margin: 0 10px;">
     {% if genre %}
-    <div class="col-sm-4">
+    <div class="col-sm-3">
         <h2 class="title_genres_h2">Выбранный жанр</h2>
         <ul class="title_genres_ul">
-            {% for genre in genre %}
-            <li>{{ genre.name }}</li>
+            {% for g in genre_list %}
+            {% if genre.name == g.name %}
+            <li><span class="selected_genre">{{ g.name }}</span></li>
+            {% else %}
+            <li><a href="{% url 'catalog:genre' g.id %}">{{ g.name }}</a></li>
+            {% endif %}
             {% endfor %}
         </ul>
     </div>
-    <div class="col-sm-8" style="padding-left: 0; padding-right: 0">
+    <div class="col-sm-8" id="books">
         <div class="title_all_books"><b>Все книги этой категории</b></div>
         <ul class="line">
-            {% for genre in genre %}
             {% for book in genre.genre_book.all %}
-            <li class="col-sm-3" style="float: left; margin-bottom: 15px">
+            <li class="col-sm-3" style="float: left; margin-bottom: 15px; width: 237.5px;">
                 <div id="in-book" class="row">
                     <div class="image">
                         {% if book.image %}
@@ -45,8 +50,9 @@
                 </div>
             </li>
             {% endfor %}
-            {% endfor %}
         </ul>
+    </div>
+    <div class="col-sm-1">
     </div>
     {% else %}
     <p>Нет жанров!</p>

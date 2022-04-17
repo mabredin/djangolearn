@@ -1,6 +1,15 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
+<div class="row">
+    <div class="return">
+        <a href="{% url 'catalog:home' %}" class="back">Главная</a>
+        <span style="color: gray; padding: 0 3px"> > </span>
+        <a href="{% url 'catalog:catalog' %}" class="back">Все жанры</a>
+        <span style="color: gray; padding: 0 3px"> > </span>
+        <a href="{% url 'catalog:genre' book.genre_id%}" class="back">{{ book.genre }}</a>
+    </div>
+</div>
 <img src="{{MEDIA_URL}}{{ book.image.url }}">
 {{ book.title }}
 
