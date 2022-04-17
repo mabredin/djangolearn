@@ -3,11 +3,11 @@
 {% block content %}
 <div class="row" style="margin: 0 10px;">
     {% if list_genres %}
-    <div class="col-sm-4">
+    <div class="col-sm-3">
         <h2 class="title_genres_h2">Жанры</h2>
         <ul class="title_genres_ul">
             {% for genre in list_genres %}
-            <li>{{ genre.name }}</li>
+            <li style="padding-bottom: 6px"><a href="{% url 'catalog:genre' genre.id %}">{{ genre.name }}</a></li>
             {% endfor %}
         </ul>
     </div>
@@ -20,7 +20,7 @@
                 <div id="in-book" class="row">
                     <div class="image">
                         {% if book.image %}
-                        <a href="{% url 'catalog:detail' book.id %}" id="books">
+                        <a href="{% url 'catalog:detail' book.id %}" class="books">
                             <img src="{{MEDIA_URL}}{{ book.image.url }}" id="img-book">
                         </a>
                         {% else %}
@@ -28,7 +28,7 @@
                         {% endif %}
                     </div>
                     <div class="title">
-                        <a href="{% url 'catalog:detail' book.id %}" id="books"><b>{{ book.title }}</b></a>
+                        <a href="{% url 'catalog:detail' book.id %}" class="books"><b>{{ book.title }}</b></a>
                     </div>
                     <div class="author">{{ book.display_author }}</div>
                     <div class="cost"><b>{{ book.cost }} ₽</b></div>
@@ -43,6 +43,8 @@
             {% endfor %}
             {% endfor %}
         </ul>
+    </div>
+    <div class="col-sm-1">
     </div>
     {% else %}
     <p>Нет жанров!</p>

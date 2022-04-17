@@ -16,7 +16,14 @@
     url('../fonts/montserrat-variablefont_wght-webfont.woff') format('woff');
     font-weight: normal;
     font-style: normal;
+}
 
+@font-face {
+    font-family: 'londrina_shadowregular';
+    src: url('../fonts/londrinashadow-regular-webfont.woff2') format('woff2'),
+         url('../fonts/londrinashadow-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
 }
 
 .col-sm {
@@ -46,12 +53,31 @@
 
 .title_genres_h2 {
     font-size: 28px;
+    margin-left: 45px;
 }
 
 .title_genres_ul {
-    padding-left: 10px;
+    padding-left: 47px;
     list-style-type: none;
-    font-size: 20px;
+    font-size: 15px;
+    color: black;
+    text-decoration: none;
+}
+
+.title_genres_ul a {
+    color: black;
+    text-decoration: none;
+}
+
+.title_genres_ul a:hover {
+    color: red;
+    text-decoration: none;
+    background-color: #E1DDE078;
+    border-style: solid;
+    border-width: thin;
+    border-radius: 4px;
+    border-color: #E1DDE078;
+    padding: 0 5px;
 }
 
 .title_all_books {
@@ -101,6 +127,7 @@
     border-color: #E1DDE0;
     padding: 10px 0;
     position: relative;
+    min-width: 185.4px;
 }
 
 #img-book {
@@ -141,11 +168,51 @@
     box-shadow: none;
 }
 
-#books {
+.books {
     color: black;
     text-decoration: none;
 }
 
-#books:hover {
+.books:hover {
     color: red;
 }
+
+.return {
+    margin-left: 69px;
+}
+
+.back {
+    color: gray;
+    max-width: 75px;
+    text-align: center;
+    font-size: 17px;
+}
+
+.back:hover {
+    color: red;
+    padding: 0 5px;
+}
+
+/*.logo {*/
+/*    !* Vector 1 *!*/
+
+/*    position: absolute;*/
+/*    width: 102.08px;*/
+/*    height: 92.24px;*/
+/*    border: 3px solid #000000;*/
+/*}*/
+
+/*.title_site {*/
+/*    !* BookStore *!*/
+
+/*    position: absolute;*/
+/*    width: 341px;*/
+/*    height: 106px;*/
+/*    font-family: 'londrina_shadowregular';*/
+/*    font-style: normal;*/
+/*    font-weight: 400;*/
+/*    font-size: 85px;*/
+/*    line-height: 101px;*/
+/*    text-align: center;*/
+/*    color: #000000;*/
+/*}*/
