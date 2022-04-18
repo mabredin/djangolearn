@@ -21,7 +21,7 @@
 @font-face {
     font-family: 'londrina_shadowregular';
     src: url('../fonts/londrinashadow-regular-webfont.woff2') format('woff2'),
-         url('../fonts/londrinashadow-regular-webfont.woff') format('woff');
+    url('../fonts/londrinashadow-regular-webfont.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 }
@@ -53,11 +53,11 @@
 
 .title_genres_h2 {
     font-size: 28px;
-    margin-left: 45px;
+    margin-left: 9px;
 }
 
 .title_genres_ul {
-    padding-left: 47px;
+    padding-left: 9px;
     list-style-type: none;
     font-size: 15px;
     color: black;
@@ -104,6 +104,7 @@
 .line {
     float: left;
     list-style-type: none;
+    padding-left: 1rem;
 }
 
 .image {
@@ -131,10 +132,6 @@
 .cost {
     font-size: 22px;
     text-align: left;
-}
-
-#f {
-    width: 238px;
 }
 
 #in-book {
@@ -202,7 +199,7 @@
 }
 
 .return {
-    margin-left: 69px;
+    margin-left: 32px;
 }
 
 .back {

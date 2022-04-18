@@ -2,56 +2,56 @@
 
 {% block content %}
 <div class="row">
-    <div class="return"><a href="{% url 'catalog:home' %}" class="back">Главная</a><span style="color: gray; padding: 0 3px">
-</div>
-<div class="row" style="margin: 0 10px;">
-    {% if list_genres %}
-    <div class="col-sm-3">
-        <h2 class="title_genres_h2">Жанры</h2>
-        <ul class="title_genres_ul">
-            {% for genre in list_genres %}
-            <li style="padding-bottom: 6px"><a href="{% url 'catalog:genre' genre.id %}">{{ genre.name }}</a></li>
-            {% endfor %}
-        </ul>
+    <div class="return">
+        <a href="{% url 'catalog:home' %}" class="back">Главная</a>
     </div>
-    <div class="col-sm-8" id="books">
-        <div class="title_all_books"><b>Все книги в магазине</b></div>
-        <ul class="line">
-            {% for genre in list_genres %}
-            {% for book in genre.genre_book.all %}
-            <li class="col-sm-3" style="float: left; margin-bottom: 15px">
-                <div id="in-book" class="row">
-                    <div class="image">
-                        {% if book.image %}
-                        <a href="{% url 'catalog:detail' book.id %}" class="books">
-                            <img src="{{MEDIA_URL}}{{ book.image.url }}" id="img-book">
-                        </a>
-                        {% else %}
-                        <p>Изображение отсутствует</p>
-                        {% endif %}
+    <div class="row" style="margin: 0 10px;">
+        {% if list_genres %}
+        <div class="col-sm-3">
+            <h2 class="title_genres_h2">Жанры</h2>
+            <ul class="title_genres_ul">
+                {% for genre in list_genres %}
+                <li style="padding-bottom: 6px"><a href="{% url 'catalog:genre' genre.id %}">{{ genre.name }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col-sm-9" id="books">
+            <div class="title_all_books"><b>Все книги в магазине</b></div>
+            <ul class="line" style="width: 972px">
+                {% for genre in list_genres %}
+                {% for book in genre.genre_book.all %}
+                <li class="col-sm-3" style="float: left; margin-bottom: 15px">
+                    <div id="in-book" class="row">
+                        <div class="image">
+                            {% if book.image %}
+                            <a href="{% url 'catalog:detail' book.id %}" class="books">
+                                <img src="{{MEDIA_URL}}{{ book.image.url }}" id="img-book">
+                            </a>
+                            {% else %}
+                            <p>Изображение отсутствует</p>
+                            {% endif %}
+                        </div>
+                        <div class="title">
+                            <a href="{% url 'catalog:detail' book.id %}" class="books"><b>{{ book.title }}</b></a>
+                        </div>
+                        <div class="author">{{ book.display_author }}</div>
+                        <div class="cost"><b>{{ book.cost }} ₽</b></div>
+                        <div class="buttons">
+                            <a href="{% url 'catalog:detail' book.id %}" style="text-decoration: none">
+                                <button class="btn btn-primary" type="button" id="detail">Подробнее</button>
+                            </a>
+                            <button class="btn btn-primary" type="submit" id="order">Заказать</button>
+                        </div>
                     </div>
-                    <div class="title">
-                        <a href="{% url 'catalog:detail' book.id %}" class="books"><b>{{ book.title }}</b></a>
-                    </div>
-                    <div class="author">{{ book.display_author }}</div>
-                    <div class="cost"><b>{{ book.cost }} ₽</b></div>
-                    <div class="buttons">
-                        <a href="{% url 'catalog:detail' book.id %}" style="text-decoration: none">
-                            <button class="btn btn-primary" type="button" id="detail">Подробнее</button>
-                        </a>
-                        <button class="btn btn-primary" type="submit" id="order">Заказать</button>
-                    </div>
-                </div>
-            </li>
-            {% endfor %}
-            {% endfor %}
-        </ul>
+                </li>
+                {% endfor %}
+                {% endfor %}
+            </ul>
+        </div>
+        {% else %}
+        <p>Нет жанров!</p>
+        {% endif %}
     </div>
-    <div class="col-sm-1">
-    </div>
-    {% else %}
-    <p>Нет жанров!</p>
-    {% endif %}
 </div>
 {% endblock %}
 <!--Единственное, за чем вы должны следить в таком случае — отмена обтекания. Следующему блоку после плавающих -->

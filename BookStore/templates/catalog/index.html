@@ -1,53 +1,56 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-<div style="font-family: 'montserratthin Regular 400'; font-size: 38px; margin-bottom: 15px; padding-left: 19px"><b>Главная
-    страница</b></div>
 {% if latest_books_list %}
 <div class="row">
-    <div class="col-sm-1"></div>
-    <div class="col-sm-10" style="padding-left: 0; padding-right: 0">
-        <div class="row"
-             style="background-color: blanchedalmond; height: 300px; text-align: center; line-height: 300px; font-size: 30px; opacity: 0.6">
-            <div class="col-sm-12">
+    <div class="col-sm-12" style="padding-left: 0; padding-right: 0">
+        <div style="font-size: 38px; margin-bottom: 15px; padding-left: 40px"><b>Главная страница</b></div>
+        <div class="row" style="padding: 0 24px">
+            <div class="col-sm-12"
+                 style="background-color: blanchedalmond; height: 300px; text-align: center; line-height: 300px; font-size: 30px; opacity: 0.6">
                 Тут будет слайдер с рекламой и акциями
             </div>
         </div>
-        <div style="font-size: 28px; margin-bottom: 15px; margin-top: 15px ; padding-left: 19px">
-            <b>В нашем магазине появились</b>
-        </div>
-        <ul class="line">
-            {% for book in latest_books_list %}
-            <li class="col-sm-2" style="float: left; margin-bottom: 15px; width: 19.3%;">
-                <div id="in-book" class="row">
-                    <div class="image">
-                        {% if book.image %}
-                        <a href="{% url 'catalog:detail' book.id %}" class="books">
-                            <img src="{{MEDIA_URL}}{{ book.image.url }}" id="img-book">
-                        </a>
-                        {% else %}
-                        <p>Изображение отсутствует</p>
-                        {% endif %}
-                    </div>
-                    <div class="title">
-                        <a href="{% url 'catalog:detail' book.id %}" class="books"><b>{{ book.title }}</b></a>
-                    </div>
-                    <div class="author">{{ book.display_author }}</div>
-                    <div class="cost"><b>{{ book.cost }} ₽</b></div>
-                    <div class="buttons">
-                        <a href="{% url 'catalog:detail' book.id %}" style="text-decoration: none">
-                            <button class="btn btn-primary" type="button" id="detail">Подробнее</button>
-                        </a>
-                        <button class="btn btn-primary" type="submit" id="order">Заказать</button>
-                    </div>
+        <div class="row">
+            <div class="col-sm-12" style="padding: 0;">
+                <div style="font-size: 28px; margin-bottom: 15px; margin-top: 15px ; padding-left: 53px">
+                    <b>В нашем магазине появились</b>
                 </div>
-            </li>
-            </a>
-            {% endfor %}
-        </ul>
-        <h2>Популярные</h2>
-        <h3>...</h3>
-        <h3>...</h3>
+                <ul class="line" style="padding: 0 23px">
+                    {% for book in latest_books_list %}
+                    <li class="col-sm-2" style="float: left; width: 18.3%; margin: 0 0 0 15px">
+                        <div id="in-book" class="row" style="margin-left: 16px;">
+                            <div class="image">
+                                {% if book.image %}
+                                <a href="{% url 'catalog:detail' book.id %}" class="books">
+                                    <img src="{{MEDIA_URL}}{{ book.image.url }}" id="img-book">
+                                </a>
+                                {% else %}
+                                <p>Изображение отсутствует</p>
+                                {% endif %}
+                            </div>
+                            <div class="title">
+                                <a href="{% url 'catalog:detail' book.id %}" class="books"><b>{{ book.title }}</b></a>
+                            </div>
+                            <div class="author">{{ book.display_author }}</div>
+                            <div class="cost"><b>{{ book.cost }} ₽</b></div>
+                            <div class="buttons">
+                                <a href="{% url 'catalog:detail' book.id %}" style="text-decoration: none">
+                                    <button class="btn btn-primary" type="button" id="detail">Подробнее</button>
+                                </a>
+                                <button class="btn btn-primary" type="submit" id="order">Заказать</button>
+                            </div>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="row" style="padding-left: 40px">
+            <h2>Популярные</h2>
+            <h3>...</h3>
+            <h3>...</h3>
+        </div>
     </div>
 </div>
 {% else %}
